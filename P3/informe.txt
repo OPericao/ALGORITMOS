@@ -1,0 +1,63 @@
+A continuacion llevaremos a cabo el estudio de 2 algoritmos relacionados con arboles binarios: el de insercion y el de busqueda. Se nos ha proporcionado el codigo de la funcion de insercion, y hemos tenido que implementar la funcion de busqueda. Ademas, hemos realizado el estudio de la O de ambos.
+---------------------------------------------------------------------------
+Hemos realizado las mediciones en una maquina con las siguientes 
+caracteristicas:
+- CPU: 11th Gen i5-1135G7	2.40GHz
+- RAM: 8GB
+- SO: Ubuntu 22.04.1
+---------------------------------------------------------------------------
+Los tiempos estan representados en microsegundos. Para los casos en los que el tiempo es <500 microsegundos (indicados con un (*)), hemos calculado t como el promedio de los t resultantes de repetir el proceso k veces (en este caso k=1000).
+la n indica el numero de valores a insertar en un arbol vacio (en el caso del algoritmo de insercion) o a buscar en el arbol resultante de la insercion (en el caso del algoritmo de busqueda). Sigue una progresion geometrica de razon 2 (comenzando en n=1000).
+Los numeros con los que realizamos ambas pruebas son valores aleatorios comprendidos entre -n y n.
+---------------------------------------------------------------------------
+Las cotas utilizadas son, tanto para la insercion como para la busqueda:
+- Ajustada: n^1.28
+- Subestimada : n^1.1
+- Sobreestimada : n^1.45
+Las siguientes tablas muestran los valores obtenidos para 9 entradas de la progresion geometrica:
+
+            n         t_ins (n)            t_bus (n)
+(*)        1000         51.503   (*)         79.169
+(*)        2000        172.173   (*)        176.647
+(*)        4000        483.361   (*)        447.733
+           8000       1155.000             1129.000
+          16000       2707.000             2602.000
+          32000       6152.000             6267.000
+          64000      15159.000            14405.000
+         128000      33925.000            34001.000
+         256000      83312.000            86186.000
+
+Insercion de n elementos
+             n           t(n)       t(n)/n^1.1    t(n)/n^1.28    f(n)/n^1.45
+(*)        1000         51.503       0.025813       0.007444       0.002301		(*1)
+(*)        2000        172.173       0.040256       0.010248       0.002815
+(*)        4000        483.361       0.052724       0.011848       0.002893
+           8000       1155.000       0.058774       0.011658       0.002530
+          16000       2707.000       0.064262       0.011252       0.002170
+          32000       6152.000       0.068132       0.010530       0.001805
+          64000      15159.000       0.078320       0.010685       0.001628
+         128000      33925.000       0.081769       0.009847       0.001334
+         256000      83312.000       0.093679       0.009958       0.001199
+
+Busqueda de n elementos
+             n           t(n)       t(n)/n^1.1    t(n)/n^1.28    f(n)/n^1.45
+(*)        1000         79.169       0.039678       0.011443       0.003536
+(*)        2000        176.647       0.041302       0.010514       0.002888
+(*)        4000        447.733       0.048837       0.010974       0.002679
+           8000       1129.000       0.057451       0.011396       0.002473
+          16000       2602.000       0.061770       0.010815       0.002086
+          32000       6267.000       0.069406       0.010727       0.001839
+          64000      14405.000       0.074424       0.010153       0.001547
+         128000      34001.000       0.081952       0.009869       0.001337
+         256000      86186.000       0.096911       0.010301       0.001240
+
+------------------------------------------------------------------------
+En el caso del algoritmo de insercion, podemos ver que la sucesion de la cota ajustada tiende a un valor entre 0.0105 y 0.011
+Por otro lado, para la busqueda la sucesion tiende a un valor entre 0.0103 y 0.0107
+
+(*1) Al tratarse de un valor tan bajo, una pequeña variacion es suficiente para que el valor de t entre la cota se aleje de lo esperado. Ejecutando muchas veces el programa se podria obtener un mejor valor, pero por norma general este se separa de la media.
+------------------------------------------------------------------------
+Aunque la complejidad teorica de estos algoritmos fuese logaritmica, los valores obtenidos no dan indicios de que esa sea la complejidad empirica. Se acerca mas a una complejidad lineal.
+Los tiempos que se consiguen son muy similares entre los 2 algoritmos porque, pese a que tienen objetivos distintos, su implementacion es practicamente identica; ambas son funciones recurisvas en las que, si no se consigue lo pedido, se continua intentandolo por el subarbol izquierdo y el derecho. Es un poco menor el
+tiempo en la insercion ya que se insertar sobre un arbol vacio pero se busca siempre sobre uno lleno.
+
